@@ -1,5 +1,5 @@
 # gulp
-gulp基础搭建（sass，babel）
+gulp基础搭建（sass,babel,sprite）
 
 说明：
 node 8.11.1
