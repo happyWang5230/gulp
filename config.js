@@ -6,6 +6,16 @@ var global_config = {
     sass: {
         source: "scss/*.scss",
         output: "dist/css"
+    },
+    sprite: {
+        source: 'img/*.png',
+        imgName: 'sprite.png',
+        scssName: 'sprite.scss',
+        cssFormat: 'scss',
+        output: {
+            sass: "scss",
+            img: "dist/img"
+        }
     }
 }
 module.exports = global_config;
