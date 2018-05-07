@@ -19,7 +19,6 @@ gulp.task('sprite', function () {
     // 图像流转化为buffer类型并压缩保存到磁盘
     var imgStream = spriteData.img
         .pipe(buffer())
-        .pipe(imagemin())
         .pipe(gulp.dest(config.sprite.output.img));
 
     // 样式流保存到磁盘
