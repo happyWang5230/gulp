@@ -2,10 +2,11 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var babel = require('gulp-babel');
 var config = require('./config.js');
-var imagemin = require('gulp-imagemin');
 var spritesmith = require('gulp.spritesmith');
 var buffer = require('vinyl-buffer');
 var merge = require('merge-stream');
+var debug = require('gulp-debug');  //调试gulp
+var changed = require('gulp-changed');  //过滤未更改文件
 
 //css sprite
 gulp.task('sprite', function () {
@@ -16,7 +17,7 @@ gulp.task('sprite', function () {
         cssFormat: config.sprite.cssFormat
     }));
 
-    // 图像流转化为buffer类型并压缩保存到磁盘
+    // 图像流转化为buffer类型保存到磁盘
     var imgStream = spriteData.img
         .pipe(buffer())
         .pipe(gulp.dest(config.sprite.output.img));
@@ -32,6 +33,7 @@ gulp.task('sprite', function () {
 //编译es6
 gulp.task('babel', function () {
     return gulp.src(config.babel.source)
+        .pipe(changed(config.babel.output))
         .pipe(babel())
         .pipe(gulp.dest(config.babel.output));
 });
@@ -39,8 +41,9 @@ gulp.task('babel', function () {
 //编译sass
 gulp.task('sass', function () {
     return gulp.src(config.sass.source)
+        .pipe(changed(config.sass.output,{extension:'.css'})) //如果输出文件扩展名改变了需要配置extension
         .pipe(sass())
-        .pipe(gulp.dest(config.sass.output))
+        .pipe(gulp.dest(config.sass.output));
 });
 
 //监听babel
