@@ -7,6 +7,10 @@ var global_config = {
         source: "scss/*.scss",
         output: "dist/css"
     },
+    postcss: {
+        source: "css/*.css",
+        output: "dist/css"
+    },
     sprite: {
         source: 'img/*.png',
         imgName: 'sprite.png',

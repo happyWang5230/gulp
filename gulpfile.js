@@ -7,6 +7,21 @@ var buffer = require('vinyl-buffer');
 var merge = require('merge-stream');
 var debug = require('gulp-debug');  //调试gulp
 var changed = require('gulp-changed');  //过滤未更改文件
+var postcss = require('gulp-postcss');
+var cssnano = require('cssnano');
+var cssnext = require('postcss-cssnext');
+
+//postcss
+gulp.task('postcss', function () {
+    var plugins = [
+        cssnext(),
+        cssnano(),
+    ];
+    return gulp.src(config.postcss.source)
+        .pipe(changed(config.postcss.output))
+        .pipe(postcss(plugins))
+        .pipe(gulp.dest(config.postcss.output));
+});
 
 //css sprite
 gulp.task('sprite', function () {
@@ -40,9 +55,14 @@ gulp.task('babel', function () {
 
 //编译sass
 gulp.task('sass', function () {
+    var plugins = [
+        cssnext(),
+        // cssnano(),
+    ];
     return gulp.src(config.sass.source)
-        .pipe(changed(config.sass.output,{extension:'.css'})) //如果输出文件扩展名改变了需要配置extension
+        .pipe(changed(config.sass.output,{extension:'.css'}))  //如果输出文件扩展名改变了需要配置extension
         .pipe(sass())
+        .pipe(postcss(plugins))
         .pipe(gulp.dest(config.sass.output));
 });
 
