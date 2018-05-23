@@ -3,3 +3,4 @@ dist/
 .vscode/
 scss/
 
+yarn-error.log

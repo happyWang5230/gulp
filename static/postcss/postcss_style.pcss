@@ -1,0 +1,42 @@
+/* import引用文件 */
+@import "../css/variables.css";
+
+/* 可继承代码块 */
+%rounded_button { 
+    border-radius: 0.5rem; 
+    padding: 1em; 
+    border-width: 0.0625rem; 
+    border-style: solid; 
+    display: inline-block;
+} 
+
+/* 兼容老版本特性 */
+.acitve{
+    transform:translateX(10px);
+    color: #00000066;
+}
+
+/** 
+ *
+ *css4特性 
+ *
+**/
+
+/* 自定义属性（变量） */
+
+body{
+    background: var(--bgcolor);
+    
+}
+
+.blue_button { 
+    @extend %rounded_button; 
+    border-color: #2F74D1; 
+    background-color: #3B8EFF; 
+}
+
+.red_button {
+    @extend %rounded_button; 
+    border-color: #f00; 
+    background-color: #f00; 
+}
