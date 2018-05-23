@@ -65,10 +65,6 @@ gulp.task('cssmodule', ['html']);
 **/
 
 gulp.task('postcss', function () {
-    var plugins = [
-        autoprefixer(),
-        cssnano(),
-    ];
     function callback(file) {
         return {
             plugins: [
@@ -76,7 +72,7 @@ gulp.task('postcss', function () {
                 variables(),
                 extend(),
                 nested(),
-                autoprefixer(),
+                autoprefixer(), //使用默认配置包含ie11+
             ],
             options: {
                 // parser: sugarss
