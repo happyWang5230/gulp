@@ -80,7 +80,7 @@ gulp.task('postcss', function () {
         }
     }
     return gulp.src(config.postcss.source)
-        // .pipe(changed(config.postcss.output))
+        // .pipe(changed(config.postcss.output)) //import的文件不会被检测，所以去掉此插件
         .pipe(debug({title: '调试信息:'}))
         .pipe(postcss(callback))
         .pipe(rename({ extname: '.css' }))
