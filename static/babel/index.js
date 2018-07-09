@@ -4,7 +4,7 @@
  *  测试模板字符串功能(经测试在 ie11, google, firefox 中能有一致表现)
  *
 **/
- 
+
 const GLOBAL_TIMER = null;
 let str = `
     dasdda${GLOBAL_TIMER}
@@ -19,12 +19,26 @@ console.log(str);
  *
 **/
 
-function* num() {
-    yield 1;
+function* g1() {
     yield 2;
+    yield* [3];
+    yield 4;
 }
-const number = num();
-console.log(number.next(), number.next());
+
+function* g2() {
+    yield 1;
+    yield* g1();
+    yield 5;
+}
+
+var iterator = g2();
+
+console.log(iterator.next()); // {value: 1, done: false}
+console.log(iterator.next()); // {value: 2, done: false}
+console.log(iterator.next()); // {value: 3, done: false}
+console.log(iterator.next()); // {value: 4, done: false}
+console.log(iterator.next()); // {value: 5, done: false}
+console.log(iterator.next()); // {value: undefined, done: true}
 
 /**
  *
