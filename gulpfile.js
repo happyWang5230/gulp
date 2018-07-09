@@ -1,5 +1,5 @@
 var gulp         = require('gulp');
-var sass         = require('gulp-sass');
+//var sass         = require('gulp-sass');
 var babel        = require('gulp-babel');
 var config       = require('./config.js');      //gulp配置文件
 var spritesmith  = require('gulp.spritesmith');
@@ -15,7 +15,7 @@ var cssModules   = require('postcss-modules');  //模块化工具
 var ejs          = require('gulp-ejs');         //ejs支持
 var path         = require('path');             //路径模块            
 var fs           = require('fs');               //文件模块        
-var scss         = require("postcss-scss");     //编译scss混合宏信息（用处不大）
+//var scss         = require("postcss-scss");     //编译scss混合宏信息（用处不大）
 var rename       = require('gulp-rename');      //重命名
 var variables    = require('postcss-css-variables');  //定义变量（类似css4里的自定义属性）
 var import_      = require('postcss-import');   //引入外部文件
@@ -68,11 +68,11 @@ gulp.task('postcss', function () {
     function callback(file) {
         return {
             plugins: [
-                import_(),
-                variables(),
-                extend(),
-                nested(),
-                autoprefixer(), //使用默认配置包含ie11+
+                import_(),      // 引用外部文件
+                variables(),    // 变量
+                extend(),       // 继承，复用已有样式
+                nested(),       // 嵌套样式
+                autoprefixer(), // 添加浏览器前缀提高兼容性，使用默认配置包含ie11+
             ],
             options: {
                 // parser: sugarss
@@ -124,6 +124,7 @@ gulp.task('sprite', function () {
 
 gulp.task('babel', function () {
     return gulp.src(config.babel.source)
+        .pipe(debug())
         .pipe(changed(config.babel.output))
         .pipe(babel())
         .pipe(gulp.dest(config.babel.output));
@@ -148,11 +149,11 @@ gulp.task('watcher_babel', function () {
     return gulp.watch(config.babel.source, ['babel']);
 })
 
-//监听scss
+//监听sass
 // gulp.task('watcher_sass', function () {
 //     return gulp.watch(config.sass.source, ['sass']);
 // })
 
 //设置默认任务
-gulp.task('default', ['watcher_babel', 'watcher_sass']);
+// gulp.task('default', ['watcher_babel', 'watcher_sass']);
 
